@@ -18,15 +18,26 @@ Future<Subsection> _exampleSubsection(PackageContext context) async {
   final packageDir = context.packageDir;
   final pubspec = context.pubspec;
   final candidates = exampleFileCandidates(pubspec.name);
-  // Because we care about the file-names case, we first list all files, and
-  // then test for presence of candidates in that list.
+  assert(candidates.every((c) => c.startsWith('example/')));
+  // Because we care about the file-names case, we list the `example` directory
+  // (matching its exact casing) into a set, and then test for presence of
+  // candidates in that set.
   //
   // This should work on case-preserving but insensitive file-systems.
-  final files = Directory(packageDir)
-      .listSync(recursive: true, followLinks: false)
-      .map(
-        (e) => p.posix.joinAll(p.split(p.relative(e.path, from: packageDir))),
-      );
+  final exampleDir = Directory(packageDir)
+      .listSync(followLinks: false)
+      .whereType<Directory>()
+      .firstWhereOrNull((e) => p.basename(e.path) == 'example');
+  final files = exampleDir == null
+      ? const <String>{}
+      : exampleDir
+            .listSync(recursive: true, followLinks: false)
+            .map(
+              (e) => p.posix.joinAll(
+                p.split(p.relative(e.path, from: packageDir)),
+              ),
+            )
+            .toSet();
   final examplePath = candidates.firstWhereOrNull(files.contains);
   final issues = <Issue>[
     if (examplePath == null)
