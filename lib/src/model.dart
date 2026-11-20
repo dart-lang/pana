@@ -63,6 +63,9 @@ class Summary {
   /// Markdown-formatted text with errors encountered by `pana`.
   final String? errorMessage;
 
+  /// Public API diff against the previous published version, if computed.
+  final ApiDiffSummary? apiDiff;
+
   Summary({
     required this.createdAt,
     required this.runtimeInfo,
@@ -76,6 +79,7 @@ class Summary {
     this.urlProblems,
     this.errorMessage,
     this.screenshots,
+    this.apiDiff,
   });
 
   factory Summary.fromJson(Map<String, dynamic> json) =>
@@ -89,6 +93,7 @@ class Summary {
     List<String>? tags,
     Report? report,
     AnalysisResult? result,
+    ApiDiffSummary? apiDiff,
   }) {
     return Summary(
       createdAt: createdAt ?? this.createdAt,
@@ -103,6 +108,7 @@ class Summary {
       urlProblems: urlProblems,
       errorMessage: errorMessage,
       screenshots: screenshots,
+      apiDiff: apiDiff ?? this.apiDiff,
     );
   }
 }
@@ -256,10 +262,93 @@ class Report {
 
 abstract class ReportSectionId {
   static const analysis = 'analysis';
+  static const apiDiff = 'api-diff';
   static const convention = 'convention';
   static const dependency = 'dependency';
   static const documentation = 'documentation';
   static const platform = 'platform';
+}
+
+/// Summary of public API changes between the previous published version and
+/// the analyzed version, as detected by `api_summary`.
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
+class ApiDiffSummary {
+  /// The baseline published version compared against.
+  final String previousVersion;
+
+  /// The analyzed package version.
+  final String currentVersion;
+
+  /// The minimum semantic version bump required by the detected changes:
+  /// `'major'`, `'minor'`, `'patch'`, or `'none'`.
+  final String requiredVersionBump;
+
+  /// The minimum version expected according to semantic versioning rules.
+  final String minimumExpectedVersion;
+
+  /// Whether [currentVersion] satisfies [minimumExpectedVersion].
+  final bool isVersionIncrementSufficient;
+
+  /// The version of `api_summary` used to compute the diff.
+  final String? toolVersion;
+
+  /// Potentially breaking (major) API changes.
+  final List<ApiChange> breakingChanges;
+
+  /// Non-breaking (minor or patch) API changes.
+  final List<ApiChange> nonBreakingChanges;
+
+  /// Compact hierarchical unified diff of the canonical `api.txt` summary.
+  final String? textDiff;
+
+  ApiDiffSummary({
+    required this.previousVersion,
+    required this.currentVersion,
+    required this.requiredVersionBump,
+    required this.minimumExpectedVersion,
+    required this.isVersionIncrementSufficient,
+    this.toolVersion,
+    this.breakingChanges = const [],
+    this.nonBreakingChanges = const [],
+    this.textDiff,
+  });
+
+  factory ApiDiffSummary.fromJson(Map<String, dynamic> json) =>
+      _$ApiDiffSummaryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ApiDiffSummaryToJson(this);
+}
+
+/// A single public API change detected by `api_summary`.
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
+class ApiChange {
+  /// Hierarchical declaration scope (e.g. `['Class TarHeader', 'Constructor new']`).
+  final List<String> scope;
+
+  /// Human-readable description of the change.
+  final String description;
+
+  /// The change code (e.g. `'MEMBER_ADDED'`, `'MEMBER_REMOVED'`).
+  final String changeCode;
+
+  /// Whether this change is breaking.
+  final bool isBreaking;
+
+  /// Required version bump level for this change (`'major'`, `'minor'`, or `'patch'`).
+  final String type;
+
+  ApiChange({
+    this.scope = const [],
+    required this.description,
+    required this.changeCode,
+    required this.isBreaking,
+    required this.type,
+  });
+
+  factory ApiChange.fromJson(Map<String, dynamic> json) =>
+      _$ApiChangeFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ApiChangeToJson(this);
 }
 
 enum ReportStatus {

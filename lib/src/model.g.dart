@@ -62,6 +62,9 @@ Summary _$SummaryFromJson(Map<String, dynamic> json) => Summary(
   screenshots: (json['screenshots'] as List<dynamic>?)
       ?.map((e) => ProcessedScreenshot.fromJson(e as Map<String, dynamic>))
       .toList(),
+  apiDiff: json['apiDiff'] == null
+      ? null
+      : ApiDiffSummary.fromJson(json['apiDiff'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$SummaryToJson(Summary instance) => <String, dynamic>{
@@ -77,6 +80,63 @@ Map<String, dynamic> _$SummaryToJson(Summary instance) => <String, dynamic>{
   'result': ?instance.result?.toJson(),
   'urlProblems': ?instance.urlProblems?.map((e) => e.toJson()).toList(),
   'errorMessage': ?instance.errorMessage,
+  'apiDiff': ?instance.apiDiff?.toJson(),
+};
+
+ApiDiffSummary _$ApiDiffSummaryFromJson(Map<String, dynamic> json) =>
+    ApiDiffSummary(
+      previousVersion: json['previousVersion'] as String,
+      currentVersion: json['currentVersion'] as String,
+      requiredVersionBump: json['requiredVersionBump'] as String,
+      minimumExpectedVersion: json['minimumExpectedVersion'] as String,
+      isVersionIncrementSufficient:
+          json['isVersionIncrementSufficient'] as bool,
+      toolVersion: json['toolVersion'] as String?,
+      breakingChanges:
+          (json['breakingChanges'] as List<dynamic>?)
+              ?.map((e) => ApiChange.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      nonBreakingChanges:
+          (json['nonBreakingChanges'] as List<dynamic>?)
+              ?.map((e) => ApiChange.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      textDiff: json['textDiff'] as String?,
+    );
+
+Map<String, dynamic> _$ApiDiffSummaryToJson(
+  ApiDiffSummary instance,
+) => <String, dynamic>{
+  'previousVersion': instance.previousVersion,
+  'currentVersion': instance.currentVersion,
+  'requiredVersionBump': instance.requiredVersionBump,
+  'minimumExpectedVersion': instance.minimumExpectedVersion,
+  'isVersionIncrementSufficient': instance.isVersionIncrementSufficient,
+  'toolVersion': ?instance.toolVersion,
+  'breakingChanges': instance.breakingChanges.map((e) => e.toJson()).toList(),
+  'nonBreakingChanges': instance.nonBreakingChanges
+      .map((e) => e.toJson())
+      .toList(),
+  'textDiff': ?instance.textDiff,
+};
+
+ApiChange _$ApiChangeFromJson(Map<String, dynamic> json) => ApiChange(
+  scope:
+      (json['scope'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
+  description: json['description'] as String,
+  changeCode: json['changeCode'] as String,
+  isBreaking: json['isBreaking'] as bool,
+  type: json['type'] as String,
+);
+
+Map<String, dynamic> _$ApiChangeToJson(ApiChange instance) => <String, dynamic>{
+  'scope': instance.scope,
+  'description': instance.description,
+  'changeCode': instance.changeCode,
+  'isBreaking': instance.isBreaking,
+  'type': instance.type,
 };
 
 PanaRuntimeInfo _$PanaRuntimeInfoFromJson(Map<String, dynamic> json) =>
